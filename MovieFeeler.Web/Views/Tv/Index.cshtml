@@ -1,0 +1,211 @@
+﻿@model MovieFeeler.Web.Models.TvViewModel
+@{
+    ViewBag.Title = "Feel movies  : TV Series List";
+}
+
+<div class="faq">
+    <!-- general -->
+    <div class="general_agileits_genres">
+        <!--<h4 class="latest-text w3_latest_text">Featured Movies</h4>-->
+        <div class="tv-padding container">
+            <div class="agileits-single-top">
+                <ol class="breadcrumb">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li class="active">TV - Series</li>
+                </ol>
+            </div>
+        </div>
+        <div class="container">
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#rating" id="imdb-tab" role="tab" data-toggle="tab" aria-controls="imdb" aria-expanded="true">Featured</a>
+                    </li>
+                    <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Top viewed</a></li>
+                    <li role="presentation"><a href="#rating" id="rating-tab" role="tab" data-toggle="tab" aria-controls="rating" aria-expanded="true">Top Rating</a></li>
+
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                        <div class="w3_agile_featured_movies">
+                            @foreach (var airingTv in Model.GetAiringToday.results.Take(12))
+                            {
+                                <div class="col-md-2 w3l-movie-gride-agile">
+                                    <a href="/tv/detail/@airingTv.id" class="hvr-shutter-out-horizontal">
+                                        <img src="@airingTv.poster_path"  class="fixheghtimage img-responsive" alt=" " />
+                                           <a class="w3_play_icon simple-ajax-popup-align-top" href="/trailor/tvtrailer?id=@airingTv.id">
+                                    <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                </a>
+                                    </a>
+                                    <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                        <div class="w3l-movie-text">
+                                            <h6><a href="/tv/detail/@airingTv.id">@airingTv.short_name</a></h6>
+                                        </div>
+                                        <div class="mid-2 agile_mid_2_home" data-toggle="tooltip"
+                                             title="@airingTv.vote_average">
+                                            @if (!string.IsNullOrEmpty(airingTv.first_air_date))
+                                            {
+                                                <p>@DateTime.Parse(airingTv.first_air_date).Year</p>
+                                            }
+                                            else
+                                            {
+                                                <p>NA</p>
+                                            }
+
+                                            <div class="block-stars">
+                                                <input  value="@airingTv.vote_average" type="number" class="rating" min=0 max=5 step=2 data-size="xxs">
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="ribben">
+                                        <p>NEW</p>
+                                    </div>-->
+                                </div>
+                            }
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                        @foreach (var popularTv in Model.GetPopulor.results.Take(12))
+                        {
+                            <div class="col-md-2 w3l-movie-gride-agile">
+                                <a href="/tv/detail/@popularTv.id" class="hvr-shutter-out-horizontal">
+                                    <img src="@popularTv.poster_path"  class="fixheghtimage img-responsive" alt=" " />
+                                              <a class="w3_play_icon simple-ajax-popup-align-top" href="/trailor/tvtrailer?id=@popularTv.id">
+                                    <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                </a>
+                                </a>
+                                <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                    <div class="w3l-movie-text">
+                                        <h6><a href="/tv/detail/@popularTv.id">@popularTv.short_name</a></h6>
+                                    </div>
+                                    <div class="mid-2 agile_mid_2_home"  data-toggle="tooltip"
+                                             title="@popularTv.vote_average">
+                                          @if (!string.IsNullOrEmpty(popularTv.first_air_date))
+                                            {
+                                                <p>@DateTime.Parse(popularTv.first_air_date).Year</p>
+                                            }
+                                            else
+                                            {
+                                                <p>NA</p>
+                                            }
+                                       
+                                        <div class="block-stars">
+                                            <input  value="@popularTv.vote_average" type="number" class="rating" min=0 max=5 step=2 data-size="xxs">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <!--<div class="ribben">
+                                    <p>NEW</p>
+                                </div>-->
+                            </div>
+                        }
+                        <div class="clearfix"></div>
+                    </div>
+
+
+                    <div role="tabpanel" class="tab-pane fade" id="rating" aria-labelledby="rating-tab">
+                        @foreach (var topRatedTv in Model.GetTopRated.results.Take(12))
+                        {
+                            <div class="col-md-2 w3l-movie-gride-agile">
+                                <a href="/tv/detail/@topRatedTv.id" class="hvr-shutter-out-horizontal">
+                                    <img src="@topRatedTv.poster_path"  class="fixheghtimage img-responsive" alt=" " />
+                                               <a class="w3_play_icon simple-ajax-popup-align-top" href="/trailor/tvtrailer?id=@topRatedTv.id">
+                                    <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                </a>
+                                </a>
+                                <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                    <div class="w3l-movie-text">
+                                        <h6><a href="/tv/detail/@topRatedTv.id">@topRatedTv.short_name</a></h6>
+                                    </div>
+                                    <div class="mid-2 agile_mid_2_home"  data-toggle="tooltip"
+                                             title="@topRatedTv.vote_average">
+                                         @if (!string.IsNullOrEmpty(topRatedTv.first_air_date))
+                                            {
+                                                <p>@DateTime.Parse(topRatedTv.first_air_date).Year</p>
+                                            }
+                                            else
+                                            {
+                                                <p>NA</p>
+                                            }
+                                        
+                                        <div class="block-stars">
+                                            <input  value="@topRatedTv.vote_average" type="number" class="rating" min=0 max=5 step=2 data-size="xxs">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <!-- <div class="ribben">
+                                <p>NEW</p>
+                            </div>-->
+                            </div>
+                        }
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="review-slider">
+        <h4 class="margin-left latest-text">TV - Series Reviews</h4>
+        <div class="container">
+            <div class="w3_agile_banner_bottom_grid">
+                <div id="owl-demo" class="owl-carousel owl-theme">
+                    @foreach (var topRatedTvserials in Model.GetTopRated.results.Take(12))
+                    {
+                      
+                        <div class="item">
+                            <div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+                                <a href="/tv/detail/@topRatedTvserials.id" class="hvr-shutter-out-horizontal">
+                                    <img src="@topRatedTvserials.poster_path"  class="fixheghtimage img-responsive" alt=" " />
+                                                <a class="w3_play_icon simple-ajax-popup-align-top" href="/trailor/tvtrailer?id=@topRatedTvserials.id">
+                                    <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                </a>
+                                </a>
+                                <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                    <div class="w3l-movie-text">
+                                        <h6><a href="/tv/detail/@topRatedTvserials.id">@topRatedTvserials.short_name</a></h6>
+                                    </div>
+                                    <div class="mid-2 agile_mid_2_home" data-toggle="tooltip"
+                                             title="@topRatedTvserials.vote_average">
+                                        @if (!string.IsNullOrEmpty(topRatedTvserials.first_air_date))
+                                            {
+                                                <p>@DateTime.Parse(topRatedTvserials.first_air_date).Year</p>
+                                            }
+                                            else
+                                            {
+                                                <p>NA</p>
+                                            }
+                                        
+                                        <div class="block-stars">
+                                            <input  value="@topRatedTvserials.vote_average" type="number" class="rating" min=0 max=5 step=2 data-size="xxs">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <!--<div class="ribben">
+                                <p>NEW</p>
+                            </div>-->
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <!--body wrapper end-->
+        </div>
+        <!-- //general -->
+    </div>
+</div>
+<!-- footer -->
+
+<script>
+    $(document).ready(function () {
+        $(".navbar-nav").find("li").removeClass('active');
+        $('.tvlink').addClass('active');
+    })
+</script>

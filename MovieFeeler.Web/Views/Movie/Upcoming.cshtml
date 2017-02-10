@@ -1,0 +1,90 @@
+﻿@model MovieFeeler.DTO.MoviesDTO
+
+@{
+    ViewBag.Title = "Feel movies  : Upcoming Movies";
+}
+@using MvcPaging;
+<div class="general-agileits-w3l">
+    <div class="w3l-medile-movies-grids">
+
+        <!-- /movie-browse-agile -->
+
+        <div class="movie-browse-agile">
+            <!--/browse-agile-w3ls -->
+            <div class="browse-agile-w3ls general-w3ls">
+                <div class="tittle-head">
+                    <div class="padding-left-right container">
+                        <div class="agileits-single-top">
+                            <ol class="breadcrumb">
+                                <li><a href="/">Home</a></li>
+                                <li class="active">Upcoming</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="browse-inner">
+
+                        @foreach (var upcomgmovie in Model.results)
+                        {
+
+                            <div class="col-md-2 w3l-movie-gride-agile">
+
+                                <a href="/movie/detail/@upcomgmovie.id" class="hvr-shutter-out-horizontal">
+                                    <img src="@upcomgmovie.poster_path"  alt=" " class="fixheghtimage img-responsive" />
+                                      <a class="w3_play_icon simple-ajax-popup-align-top" href="/trailor/index?id=@upcomgmovie.id">
+                                        <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                    </a>
+                                </a>
+                                <div class="mid-1">
+                                    <div class="w3l-movie-text">
+                                        <h6>@upcomgmovie.short_title</h6>
+                                    </div>
+                                    <div class="mid-2" data-toggle="tooltip"
+                                             title="@upcomgmovie.vote_average">
+                                          @if (!string.IsNullOrEmpty(upcomgmovie.release_date))
+                                        {
+                                            <p>@DateTime.Parse(upcomgmovie.release_date).Year</p>
+                                        }
+                                        else
+                                        {
+                                            <p>NA</p>
+                                        }
+                                        
+                                        <div class="block-stars">
+                                            <input  value="@upcomgmovie.vote_average" type="number" class="rating" min=0 max=5 step=2 data-size="xxs">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                </div>
+                                <!--<div class="ribben two">
+										<p>NEW</p>
+									</div>	-->
+                            </div>
+                        }
+
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="blog-pagenat-wthree">
+                        @Html.Pager(20, Model.page, Model.total_results).Options(o => o.Action("upcoming"))
+                    </div>
+                </div>
+            </div>
+            <!--//browse-agile-w3ls -->
+
+        </div>
+        <!-- //movie-browse-agile -->
+        <!--body wrapper start-->
+        <!--body wrapper start-->
+
+    </div>
+    <!-- //w3l-medile-movies-grids -->
+</div>
+<script>
+    $(document).ready(function () {        
+        $(".navbar-nav").find("li").removeClass('active');
+        $('.upcominglink').addClass('active');                
+    })
+</script>

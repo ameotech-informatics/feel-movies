@@ -1,0 +1,26 @@
+/*
+HTML 5 Template Name: 
+File: 404 - 12 CSS
+Author: OS Templates
+Author URI: http://www.os-templates.com/
+Licence: <a href="http://www.os-templates.com/template-terms">Website Template Licence</a>
+*/
+#fof{display:block; width:100%; padding:95px 0; line-height:1.6em;}
+#fof .fl_left{padding-top:40px; text-align:center;}
+#fof .fl_left img{margin-bottom:20px;}
+#fof .fl_left h1{font-size:20px; text-transform:uppercase;}
+#fof .fl_right{margin-left: 86px;}
+#fof .fl_right h2{font-size:40px;}
+#fof .fl_right p{display:block; margin:0 0 25px 0; padding:0; font-size:16px;}
+#fof .fl_right ul{margin:0; padding:0; list-style:none;}
+#fof .fl_right ul li{margin-bottom:5px; padding-bottom:5px; border-bottom:1px solid #979797;}
+
+/* CSS3 Elements Only Work In Latest Browsers */
+
+/* IE9 and below don't support CSS generated columns */
+
+#fof .fl_right ul{
+	-moz-column-count:2;
+	-webkit-column-count:2;
+	column-count:2;
+	}

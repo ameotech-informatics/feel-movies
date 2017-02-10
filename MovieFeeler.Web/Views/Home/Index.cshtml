@@ -1,0 +1,320 @@
+﻿@model MovieFeeler.Web.Models.HomeViewModel
+@{
+    ViewBag.Title = "Feel movies  : Home";
+ 
+}
+
+<!-- banner -->
+<div id="slidey" style="display: none;">
+    <ul>
+        @foreach (var upcomgmovie in Model.UpcomingMovies.results)
+        {
+            <li>
+                <img src="@upcomgmovie.backdrop_path" alt=" ">
+                <p class='title'>@upcomgmovie.title</p>
+                <p class='description'>
+                    @upcomgmovie.overview
+                </p>
+            </li>    
+        }
+    </ul>
+</div>
+
+<!-- //banner -->
+
+
+<!-- banner-bottom -->
+<div class="banner-bottom">
+    <div class="container-padding container">
+        <div class="w3_agile_banner_bottom_grid">
+            <div id="owl-demo" class="owl-carousel owl-theme">
+                @foreach (var topratedmovie in Model.TopRatedMovies.results)
+                {
+                   
+                        <div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+                            <a  href="/movie/detail/@topratedmovie.id" class="hvr-shutter-out-horizontal">
+                                <img src="@topratedmovie.poster_path"  class="fixheghtimage img-responsive" alt=" " />
+                                <a class="w3_play_icon simple-ajax-popup-align-top" href="/trailor/index?id=@topratedmovie.id">
+                                    <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                </a>
+
+                            </a>
+                            <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                <div class="w3l-movie-text">
+                                    <h6><a href="/movie/detail/@topratedmovie.id">@topratedmovie.short_title</a></h6>
+                                </div>
+                                <div class="mid-2 agile_mid_2_home" data-toggle="tooltip"
+                                             title="@topratedmovie.vote_average">
+                                    @if (!string.IsNullOrEmpty(topratedmovie.release_date))
+                                    {
+                                        <p>@DateTime.Parse(topratedmovie.release_date).Year</p>
+                                    }
+                                    else
+                                    {
+                                        <p>NA</p>
+                                    }
+                                    <div class="block-stars">
+                                        <input  value="@topratedmovie.vote_average" type="number" class="rating" min=0 max=5 step=2 data-size="xxs" >
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <!--<div class="ribben">
+                                <p>NEW</p>
+                            </div>-->
+                        </div>
+                  					
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //banner-bottom -->
+<!-- general -->
+<div class="general">
+    <h4 class="latest-text w3_latest_text">Featured Movies</h4>
+
+    <div class="container container-padding" >
+        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Featured</a></li>
+                <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Top viewed</a></li>
+                <li role="presentation"><a href="#rating" id="rating-tab" role="tab" data-toggle="tab" aria-controls="rating" aria-expanded="true">Top Rating</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                    <div class="w3_agile_featured_movies">
+                            @foreach (var upcomingmovie in Model.UpcomingMovies.results.Take(12))
+                            {
+                                <div class="col-md-2 w3l-movie-gride-agile">
+                                    <a href="/movie/detail/@upcomingmovie.id" class="hvr-shutter-out-horizontal">
+                                         <img src="@upcomingmovie.poster_path"  class="fixheghtimage img-responsive" alt=" " />
+                                     <a class="w3_play_icon simple-ajax-popup-align-top" href="/trailor/index?id=@upcomingmovie.id">
+                                        <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                    </a>
+                                        </a>
+                                    <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                        <div class="w3l-movie-text">
+                                            <h6><a href="/tv/detail/@upcomingmovie.id">@upcomingmovie.short_title</a></h6>
+                                        </div>
+                                        <div class="mid-2 agile_mid_2_home" data-toggle="tooltip"
+                                             title="@upcomingmovie.vote_average">
+                                            @if (!string.IsNullOrEmpty(upcomingmovie.release_date))
+                                            {
+                                                <p>@DateTime.Parse(upcomingmovie.release_date).Year</p>
+                                            }
+                                            else
+                                            {
+                                                <p>NA</p>
+                                            }
+
+                                            <div class="block-stars">
+                                                <input  value="@upcomingmovie.vote_average" type="number" class="rating" min=0 max=5 step=2 data-size="xxs">
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="ribben">
+                                        <p>NEW</p>
+                                    </div>-->
+                                </div>
+                            }
+                            <div class="clearfix"></div>
+                        </div>
+
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                    @foreach (var popularmovie in Model.PopularMovies.results.Take(12))
+                    {
+                        <div class="col-md-2 w3l-movie-gride-agile">
+                            <a href="/movie/detail/@popularmovie.id" class="hvr-shutter-out-horizontal">
+                                <img src="@popularmovie.poster_path"  class="fixheghtimage img-responsive" alt=" " />
+                                <a class="w3_play_icon simple-ajax-popup-align-top" href="/trailor/index?id=@popularmovie.id">
+                                    <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                </a>
+                            </a>
+                            <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                <div class="w3l-movie-text">
+                                    <h6><a href="/movie/detail/@popularmovie.id">@popularmovie.short_title</a></h6>
+                                </div>
+                                <div class="mid-2 agile_mid_2_home" data-toggle="tooltip"
+                                             title="@popularmovie.vote_average">
+                                    @if (!string.IsNullOrEmpty(popularmovie.release_date))
+                                    {
+                                        <p>@DateTime.Parse(popularmovie.release_date).Year</p>
+                                    }
+                                    else
+                                    {
+                                        <p>NA</p>
+                                    }
+
+                                    <div class="block-stars">
+                                        <input  value="@popularmovie.vote_average" type="number" class="rating" min=0 max=5 step=2 data-size="xxs">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <!--<div class="ribben">
+                                <p>NEW</p>
+                            </div>-->
+                        </div>
+                    }
+
+                    <div class="clearfix"></div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="rating" aria-labelledby="rating-tab">
+                    @foreach (var topratedmovie in Model.TopRatedMovies.results.Take(12))
+                    {
+                        <div class="col-md-2 w3l-movie-gride-agile">
+                            <a href="/movie/detail/@topratedmovie.id" class="hvr-shutter-out-horizontal">
+                                <img src="@topratedmovie.poster_path"  class="fixheghtimage img-responsive" alt=" " />
+                               <a class="w3_play_icon simple-ajax-popup-align-top" href="/trailor/index?id=@topratedmovie.id">
+                                        <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                    </a>
+
+                            </a>
+                            <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                <div class="w3l-movie-text">
+                                    <h6><a href="/movie/detail/@topratedmovie.id">@topratedmovie.short_title</a></h6>
+                                </div>
+                                <div class="mid-2 agile_mid_2_home" data-toggle="tooltip"
+                                             title="@topratedmovie.vote_average">
+                                    @if (!string.IsNullOrEmpty(topratedmovie.release_date))
+                                    {
+                                        <p>@DateTime.Parse(topratedmovie.release_date).Year</p>
+                                    }
+                                    else
+                                    {
+                                        <p>NA</p>
+                                    }
+
+                                    <div class="block-stars">
+                                        <input  value="@topratedmovie.vote_average" type="number" class="rating" min=0 max=5 step=2 data-size="xxs">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <!--<div class="ribben">
+                                <p>NEW</p>
+                            </div>-->
+                        </div>
+                    }
+
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //general -->
+<!-- Latest-tv-series -->
+<div class="Latest-tv-series">
+    <h4 class="latest-text w3_latest_text w3_home_popular">Most Popular Movies</h4>
+    <div class="container">
+        <section class="slider">
+            <div class="flexslider">
+                <ul class="slides">
+                    @foreach (var allpopularmovie in Model.PopularMovies.results.Take(12))
+                    {
+                        <li>
+                            <div class="agile_tv_series_grid">
+                                <div class="col-md-6 agile_tv_series_grid_left">
+                                    <div class="w3ls_market_video_grid1">
+                                        <img src="@allpopularmovie.backdrop_path"  alt=" "  class="imageheight img-responsive"  />@*style=" min-height: 290px !important;"*@
+                                       <a class="w3_play_icon simple-ajax-popup-align-top" href="/trailor/index?id=@allpopularmovie.id">
+                                        <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+                                    </a>
+                                       
+                                             
+                                    </div>
+                                </div>
+                                <div class="col-md-6 agile_tv_series_grid_right">
+                                    <p class="fexi_header">@allpopularmovie.title</p>
+                                    <p class="fexi_header_para">
+                                        <span class="conjuring_w3">Story Line<label>:</label></span>
+                                        @allpopularmovie.short_overview
+                                    </p>
+                                    <p class="fexi_header_para">
+                                        <span>Date of Release<label>:</label></span>
+                                        @if (!string.IsNullOrEmpty(allpopularmovie.release_date))
+                                        {
+                                            <p>@DateTime.Parse(allpopularmovie.release_date).Year</p>
+                                        }
+                                        else
+                                        {
+                                            <p>NA</p>
+                                        }
+
+                                    </p>
+                                    <p class="fexi_header_para">
+                                        <span>Genres<label>:</label>
+                                        </span>
+                                        <a href="javascript://">Drama</a> | 
+										<a href="javascript://">Adventure</a> | 
+										<a href="javascript://">Family</a>
+                                    </p>
+                                    <p class="fexi_header_para fexi_header_para1">
+                                        <span>Star Rating<label>:</label></span>
+                                    </p>
+                                    <span>
+                                        <input  value="@allpopularmovie.vote_average" type="number" class="rating" min=0 max=5 step=2 data-size="xxs" style="border-color:black;"></span>
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="agileinfo_flexislider_grids">
+                                    @foreach (var poplrmovie in Model.PopularMovies.results.Take(12))
+                                    {
+                                        <div class="col-md-2 w3l-movie-gride-agile">
+                                            <a href="/movie/detail/@poplrmovie.id" class="hvr-shutter-out-horizontal">
+                                                <img src="@poplrmovie.poster_path"  class="fixheghtimage img-responsive" alt=" " />
+                                                 <a class="w3_play_icon simple-ajax-popup-align-top" href="/trailor/index?id=@poplrmovie.id">
+                                        <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                    </a>
+
+                                            </a>
+                                            <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                                <div class="w3l-movie-text">
+                                                    <h6><a href="/movie/detail/@poplrmovie.id">@poplrmovie.short_title</a></h6>
+                                                </div>
+                                                <div class="mid-2 agile_mid_2_home"  data-toggle="tooltip"
+                                             title="@poplrmovie.vote_average">
+                                                    @if (!string.IsNullOrEmpty(poplrmovie.release_date))
+                                                    {
+                                                        <p>@DateTime.Parse(poplrmovie.release_date).Year</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>NA</p>
+                                                    }
+
+                                                    <div class="block-stars">
+                                                        <input  value="@poplrmovie.vote_average" type="number" class="rating" min=0 max=5 step=2 data-size="xxs">
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="ribben">
+                                        <p>NEW</p>
+                                    </div>-->
+                                        </div>
+                                    }
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </section>
+
+    </div>
+</div>
+@*<script>
+    $(document).ready(function () {        
+        $(".navbar-nav").find("li").removeClass('active');
+        $('.homelink').addClass('active');                
+    })
+</script>*@
+

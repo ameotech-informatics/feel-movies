@@ -1,0 +1,34 @@
+﻿@model MovieFeeler.Model.User
+
+@{
+    ViewBag.Title = "Feel movies  : Register";
+}
+
+<section>
+    <div class="modal-body">
+        @if (@ViewBag.msg != null)
+        {
+            <div class="infomsg alert alert-danger" style="margin-left: 453px; width: 31%; text-align: center;">
+                @ViewBag.msg
+            </div>
+        }
+        <div class="w3_login_module">
+            <div class="module form-module">
+
+                <div></div>
+                <div class="form">
+                    @using (Html.BeginForm("register", "account"))
+                    {                         
+                        <h3>Create an account</h3>                        
+                        <input type="text" name="username" placeholder="Username" required="">
+                        <input type="password" name="password" placeholder="Password" required="">
+                        <input type="email" name="email" placeholder="Email Address" required="">
+                        <input type="text" name="phoneno" placeholder="Phone Number" required="">
+                        <input type="submit" value="Register">                        
+                    }
+                </div>
+                <div class="cta"><a href="#">Forgot your password?</a></div>
+            </div>
+        </div>
+    </div>
+</section>

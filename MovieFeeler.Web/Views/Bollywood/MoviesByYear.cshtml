@@ -1,0 +1,63 @@
+﻿@model MovieFeeler.Web.Models.BollyWoodMoviesViewModel
+@{
+    ViewBag.Title = "Movies By Year";
+}
+@using MvcPaging;
+<div class="general">
+    <h4 class="latest-text w3_latest_text">Released In @Model.Year</h4>
+
+    <div class="container container-padding">
+        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                    <div class="w3_agile_featured_movies">
+                        @foreach (var moviesByYear in Model.BollywoodMoviesPaged)
+                        {
+                            <div class="col-md-2 w3l-movie-gride-agile">
+                                <a href="/bollywood/detail/@moviesByYear.id" class="hvr-shutter-out-horizontal">
+                                    <img src="@moviesByYear.poster"  class="bollywood-img img-responsive" alt=" " />
+                                    <a class="w3_play_icon directlinkpopup" href="@moviesByYear.trailerurl">
+                                        <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                    </a>
+                                </a>
+                                <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                    <div class="w3l-movie-text">
+
+                                        @if (!string.IsNullOrEmpty(moviesByYear.title) && moviesByYear.title.Length > 20)
+                                        { 
+                                            <h6>@moviesByYear.title.Substring(0, 20)</h6>
+                                        }
+                                        else
+                                        {
+                                            <h6>@moviesByYear.title</h6>
+                                        }
+
+                                    </div>
+                                    <div class="mid-2 agile_mid_2_home" data-toggle="tooltip"
+                                        title="@moviesByYear.ReleasedOn">
+                                        <p>@moviesByYear.ReleasedOn</p>
+                                        @*<div class="block-stars">
+                                            <input value="5" type="number" class="rating" min="0" max="5" step="2" data-size="xxs">
+                                        </div>*@
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <!--<div class="ribben">
+                                        <p>NEW</p>
+                                    </div>-->
+                            </div>
+                        }
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="blog-pagenat-wthree">
+                        @Html.Pager(20, Model.BollywoodMoviesPaged.PageIndex, Model.BollywoodMoviesPaged.TotalItemCount - 1).Options(o => o.Action("movies")
+                    .AddRouteValue("year", Model.Year))
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

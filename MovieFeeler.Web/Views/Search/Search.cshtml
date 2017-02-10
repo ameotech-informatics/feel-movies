@@ -1,0 +1,96 @@
+﻿@model MovieFeeler.Web.Models.SearchViewModel
+@{
+    ViewBag.Title = "Feel movies  : Search";
+   
+}
+@using MvcPaging;
+<div class="general-agileits-w3l">
+    <div class="w3l-medile-movies-grids">
+
+        <!-- /movie-browse-agile -->
+
+        <div class="movie-browse-agile">
+            <!--/browse-agile-w3ls -->
+            <div class="browse-agile-w3ls general-w3ls">
+                <div class="tittle-head">
+                    <h4 class="margin-left latest-text">Searched Result</h4>
+                    <div class="padding-left-right container">
+                        <div class="agileits-single-top">
+                            <ol class="breadcrumb">
+                                <li class="Home"><a href="/">Home</a></li>
+                             @*   <li class="active">Genres</li>*@
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="browse-inner">
+
+                         @foreach (var item in Model.SearchedResult)
+                        {
+
+                            <div class="col-md-2 w3l-movie-gride-agile">
+
+                               @if (item.media_type == "movie"){ 
+                                    <a href="/movie/detail/@item.id" class="hvr-shutter-out-horizontal">
+                                          <img src="@item.poster_path" title="album-name" class="search-max-height img-responsive" alt=" " />
+                                         <a class="w3_play_icon simple-ajax-popup-align-top" href="/trailor/index?id=@item.id">
+                                    <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                </a>
+                                        
+                                    </a>
+                                }
+                                else if (item.media_type == "tv") { 
+                                    <a href="/tv/detail/@item.id" class="hvr-shutter-out-horizontal">
+                                        <img src="@item.poster_path" title="album-name" class="search-max-height img-responsive" alt=" " />
+                                         <a class="w3_play_icon simple-ajax-popup-align-top" href="/trailor/tvtrailer?id=@item.id">
+                                    <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                </a>
+                                    </a>
+                                }
+                                <div class="mid-1">
+                                    <div class="w3l-movie-text">
+                                        <h6>@item.short_title</h6>
+                                        <h6>@item.short_name</h6>
+                                    </div>
+                                    <div class="mid-2" data-toggle="tooltip"
+                                             title="@item.vote_average">
+                                        @if (!string.IsNullOrEmpty(item.release_date))
+                                        {
+                                            <p>@DateTime.Parse(item.release_date).Year</p>
+                                        }
+                                        else
+                                        {
+                                            <p>NA</p>
+                                        }
+                                        <div class="block-stars">
+                                            <input  value="@item.vote_average" type="number" class="rating" min=0 max=5 step=2 data-size="xxs">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                </div>
+                                <!--<div class="ribben two">
+										<p>NEW</p>
+									</div>	-->
+                            </div>
+                        }
+
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+            </div>
+            <!--//browse-agile-w3ls -->
+            <div class="blog-pagenat-wthree">
+            @Html.Pager(20, Model.page, Model.total_results).Options(o => o.Action("search").AddRouteValue("q", Model.q))
+            </div>
+        </div>
+        <!-- //movie-browse-agile -->
+        <!--body wrapper start-->
+        <!--body wrapper start-->
+
+    </div>
+    <!-- //w3l-medile-movies-grids -->
+</div>

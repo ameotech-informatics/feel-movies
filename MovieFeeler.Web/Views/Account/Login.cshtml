@@ -1,0 +1,35 @@
+﻿@model MovieFeeler.Model.User
+@{
+    ViewBag.Title = "Feel movies : Login";
+}
+<section>
+    <div class="modal-body">
+          @if (@ViewBag.msg!=null)
+        {
+       <div class="infomsg alert alert-danger" style="margin-left: 453px;
+    width: 31%;text-align:center;"> @ViewBag.msg</div>
+        }
+        <div class="w3_login_module">
+            <div class="module form-module">
+                <div>
+                    
+
+                </div>
+                <div class="form">
+                    @using (Html.BeginForm("login", "account"))
+                    {
+                        <h3>Login to your account</h3>
+                        <form>
+                            <input type="text" name="username" placeholder="Username" required="">
+                            <input type="password" name="password" placeholder="Password" required="">
+                            <input type="submit" value="Login">
+                        </form>
+                    }
+                </div>
+                <div class="cta"><a href="#">Forgot your password?</a></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,23 @@
+﻿@model MovieFeeler.DTO.GenresDTO
+
+<ul class="dropdown-menu multi-column columns-3">
+    <li>
+        <div class="row">
+                <div class="col-md-12">
+                @foreach (var item in Model.genres)
+                {   
+                    <div class="col-md-4">
+                    <a href="/genre/movies/@item.id/@item.name/1" style="color: black;">@item.name</a>  
+                        </div>  
+                }
+                </div>
+        </div>       
+        <div class="clearfix"></div>
+    </li>
+</ul>
+@*<script>
+    $(document).ready(function () {        
+        $(".navbar-nav").find("li").removeClass('active');
+        $('.genrelink').addClass('active');
+    })
+</script>*@

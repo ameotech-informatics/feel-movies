@@ -1,0 +1,222 @@
+﻿@model MovieFeeler.Web.Models.BollyWoodMoviesViewModel
+@{
+    ViewBag.Title = Model.Movie.title;
+ 
+}
+@using System.Globalization
+@using MovieFeeler.Common
+
+<header>
+    <script type="application/javascript">
+        window.fbAsyncInit = function () {
+            // init the FB JS SDK
+            FB.init({
+                appId: '564895147041335',
+                status: true,
+                xfbml: true
+            });
+
+        };
+
+        // Load the SDK asynchronously
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+
+        function FBShareOp() {
+            var product_name = 'Feel movies : ' + '@Model.Movie.title';
+            var description = '@Model.Movie.overview';
+            var share_image = 'http://cars.ameotech.com' + '@Model.Movie.poster';
+            var share_url = '@string.Format("http://cars.ameotech.com/Bollywood/detail/{0}", @Model.Movie.id)';
+            var share_capt = 'cars.ameotech.com';
+            FB.ui({
+                method: 'feed',
+                name: product_name,
+                link: share_url,
+                picture: share_image,
+                caption: share_capt,
+                description: description
+
+            }, function (response) {
+                if (response && response.post_id) { }
+                else { }
+            });
+        }
+
+    </script>
+</header>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = '@ConfigSettings.GetDisqusShortname()'; // required: replace example with your forum shortname
+    var disqus_identifier = 'Bollywood/detail/@Model.Movie.id';
+    var disqus_url = 'Bollywood/detail/@Model.Movie.id';
+    var disqus_developer = 1;
+</script>
+<div class="single-page-agile-main">
+    <div class="container">
+        <!-- /w3l-medile-movies-grids -->
+        <div class="agileits-single-top">
+            <ol class="breadcrumb">
+                <li><a href="/">Home</a></li>
+                <li class="active">@Model.Movie.title</li>
+            </ol>
+        </div>
+        <div class="single-page-agile-info">
+            <!-- /movie-browse-agile -->
+            <div class="show-top-grids-w3lagile">
+                <div class="col-sm-8 single-left">
+                    <div class="song">
+                        <div class="song-info">
+                            <h3>@Model.Movie.title</h3>
+                        </div>
+                        <div class="video-grid-single-page-agileits">
+                            <div data-video="dLmKio67pVQ" id="video">
+
+                                <img src="@Model.Movie.poster" style=" height: 400px;    width: 100%;" alt="" class="img-responsive" />
+                                <a class="w3_play_icon directlinkpopup" href="@Model.Movie.trailerurl">
+                                    <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="video-grid-single-page-agileits">
+                            <p>
+                                @Model.Movie.overview
+                            </p>
+                        </div>
+
+                        <div class="video-grid-single-page-agileits" style="margin-top: 20px;">
+                            <p style="font-size: 20px;">
+                                @Model.Movie.ReleasedOn
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="song-grid-right">
+                        <div class="share" style="padding-left: 0px;">
+                            <h5>Share this</h5>
+                            <div class="single-agile-shar-buttons">
+                                <ul>
+                                    @*<li>
+
+                                        <div class="fb-like" data-href='@string.Format("http://cars.ameotech.com/Bollywood/detail/{0}", @Model.MovieDTO.id)' data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+                                    </li>*@
+                                    <li>
+                                        @*<div class="fb-share-button" data-href='@string.Format("http://cars.ameotech.com/Bollywood/detail/{0}", @Model.MovieDTO.id)'
+                                             data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                                            <a class="fb-xfbml-parse-ignore" target="_blank"
+                                                  href='@string.Format("https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcars.ameotech.com%2FBollywood%2Fdetail%2F{0}&amp;src=sdkpreparse", @Model.MovieDTO.id)'>Share</a>
+                                        </div>*@
+                                        @*<a class="btnz share facebook" onclick="FBShareOp();"><i class="fa fa-facebook"></i>Share</a>*@
+                                        @*http://johndyer.name/getting-counts-for-twitter-links-facebook-likesshares-and-google-1-plusones-in-c-or-php/*@
+                                        @*http://stackoverflow.com/questions/22065179/facebook-sharer-title-and-summary-customization*@
+                                        @*http://www.hyperarts.com/blog/tutorial-how-to-add-facebook-share-button-to-your-web-site-pages/*@
+                                        @*https://gist.github.com/tvanantwerp/6708c0bf818637bf2a50*@
+                                        <a class="social-link facebook" onclick="FBShareOp();" id="fb-share" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook"></i> Share</a>
+                                    </li>
+                                    @*<li class="news-twitter">
+                                        <a href="https://twitter.com/w3layouts" class="twitter-follow-button" data-show-count="false">Follow </a>
+                                        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                    </li>*@
+                                    <li>
+                                        <a href="https://twitter.com/share" class="twitter-share-button" data-url='@string.Format("http://cars.ameotech.com/Bollywood/detail/{0}", @Model.Movie.id)' data-text="" data-via="" data-count="vertical">Tweet</a>
+                                        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                    </li>
+                                    <li>
+                                        <!-- Place this tag where you want the +1 button to render. -->
+                                        <div class="g-plusone" data-size="medium"></div>
+
+                                        <!-- Place this tag after the last +1 button tag. -->
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <input type="hidden" id="rootUrl" value="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))"/>
+                    <div id="disqus_thread"></div>
+                </div>
+                <div class="col-md-4 single-right">
+                    <h3>Upcoming Movies</h3>
+                    <div class="single-grid-right">
+                        @foreach (var recomendMovie in Model.UpComingMovies)
+                        {                            
+                            <div class="single-right-grids">
+                                <div class="col-md-4 single-right-grid-left">
+                                    <a  href="/Bollywood/detail/@recomendMovie.id">
+                                        <img src="@recomendMovie.poster" alt="" /></a>
+
+                                </div>
+                                <div class="col-md-8 single-right-grid-right">
+                                    <a href="/Bollywood/detail/@recomendMovie.id" class="title">@recomendMovie.title</a>
+                                    <p class="views">@recomendMovie.overview.Substring(0, 150)...</p>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>                                                   
+                        }
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".navbar-nav").find("li").removeClass('active');
+        $('.homelink').addClass('active');
+        initializeDisqus();
+
+        $('#btnNext').click(function () {
+            var disqusId = 'another-page';
+            reset(disqusId);
+        });
+
+        $('#btnPrevious').click(function () {
+            var disqusId = 'yet-another-page';
+            reset(disqusId);
+        });
+
+        $('#btnInit').click(function () {
+            var disqusId = 'hello-world';
+            reset(disqusId);
+        });
+
+        //http://donreach.com/social-share-count
+        $.getJSON('https://count.donreach.com/?url=http://cars.ameotech.com/Bollywood/detail/@Model.Movie.title' + "&callback=?", function (data) {
+            shares = data.shares;
+            //alert(shares["facebook"]);
+            $("#fb-share").append("").append(" (" + shares["facebook"] + ")");
+        });
+    })
+
+    function initializeDisqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+
+        dsq.onload = function () {
+            var disqusId = 'hello-world';
+            reset(disqusId);
+        };
+
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }
+
+    function reset(disqusId) {
+        DISQUS.reset({
+            reload: true,
+            config: function () {
+                this.page.identifier = disqus_identifier;
+                this.page.url = $('#rootUrl').val() + disqus_identifier;
+            }
+        });
+    }
+</script>
